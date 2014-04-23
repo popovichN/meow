@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
+
 <title>NYTMeow</title>
+<!-- ~~ Hi. This project is not in any way associated with the New York Times. Just some pun-fun, meow >+< ~~ -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.js"></script>
 
 <style type="text/css">
@@ -62,18 +65,18 @@ h1 span{
 	height: 300px;
 	width: 100%;
 	overflow: hidden;	
-}  
-a{
+}
+
+a {
 	text-decoration: none;
 	color: #000;
 }
 </style>
 
 
-   <script type="text/javascript" language="javascript">
-  // ~*~ not in any way assoc w/the New York Times. Just some pun-fun, meow >+< ~*~
-  
-   $().ready(function() { 
+<script type="text/javascript" language="javascript">
+
+function addMews(){
 
    for (i=0; i < 3; i++) {    
 
@@ -82,35 +85,44 @@ a{
         apiKey = '&api-key=4a72ce12c77f58a3a647126cf25f0a3e:19:64832467';
 
         complete = url + pageNumber + i + apiKey;
-
+         
         console.log(complete);
 
           $.getJSON(complete, function(jsoncheck) {
 
             $.each(jsoncheck.response.docs, function (){
 
-               $('#nyt-meow').append('<div class="meow-block"><div class="images"></div><div class="head"><a href="' + this.web_url + '">' + this.headline.main + '</a></div><div class="snippet">' + this.snippet + '</div></div>');
+               $('#nyt-meow').append('<div class="meow-block '  + this.value + '"><div class="images"></div><div class="head"><a href="' + this.web_url + '">' + this.headline.main + '</a></div><div class="snippet">' + this.snippet + '</div></div>');
 
             }) 
           });   
     }
-   });
+}
 
-(function() {
-  	var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
- 	 $.getJSON( flickerAPI, {
-  	  tags: "cat",
-  	  tagmode: "any",
-   	  format: "json"
- 	 })
-    .done(function( catPics ) {
-      $.each( catPics.items, function( i, item ) {
+function addKittens () {
+
+   
+    var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
         
-        $( ".images" ).append( '<img src="' + item.media.m + '"/>');
-        
-      });
-    });
-})();
+      $.getJSON( flickerAPI, {
+          tags: "cat",
+          tagmode: "any",
+          format: "json"
+      })
+      .done(function( catPics ) {
+
+        var whichCat = catPics.items[i];
+        console.log(whichCat);
+
+          $( ".images" ).append( '<img src="' + whichCat.media.m + '"/>');
+          
+      });   
+}
+  
+addMews();
+addKittens();
+
+
 </script>
 </head>
 <body>
